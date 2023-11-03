@@ -12,7 +12,6 @@ Config.PoliceNightAlertChance = 0.25 -- Chance of alerting police at night (time
 
 -- Vehicle that require hacking to get keys/unlock doors
 Config.Vehicle = {
-    -- https://wiki.gtanet.work/index.php?title=Vehicle_Classes
     ['vehicle_class'] = {
         'emergency'
     },

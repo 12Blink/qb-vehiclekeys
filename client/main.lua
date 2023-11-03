@@ -135,32 +135,6 @@ AddEventHandler('vehiclekeys:client:GiveKeys', function(target)
     TriggerServerEvent('vehiclekeys:server:GiveVehicleKeys', plate, target)
 end)
 
--- RegisterNetEvent('vehiclekeys:client:GiveKeysClosest')
--- AddEventHandler('vehiclekeys:client:GiveKeysClosest', function()
---     local player, distance = QBCore.Functions.GetClosestPlayer()
---     local plate = GetVehicleNumberPlateText(GetVehiclePedIsIn(PlayerPedId(), true))
---     local plycoords = GetEntityCoords(PlayerPedId())
---     if player and plate and distance then
---         if GetDistanceBetweenCoords(distance.x, distance.y, distance.z, plycoords.x, plycoords.y, plycoords.z, false) < 3.0 then
---             TriggerServerEvent('vehiclekeys:server:GiveVehicleKeys', plate, GetPlayerServerId(player))
---         end
---     end
--- end)
-
--- RegisterNetEvent('vehiclekeys:client:GiveKeysClosest')
--- AddEventHandler('vehiclekeys:client:GiveKeysClosest', function()
---     local player, distance = QBCore.Functions.GetClosestPlayer()
---     if player ~= -1 then
---         if distance < 5.0 then
---             TriggerServerEvent('vehiclekeys:server:GiveVehicleKeys', plate, GetPlayerServerId(player))
---         else
---             QBCore.Functions.Notify("You are too far away")
---         end
---     else
---         QBCore.Functions.Notify("No one nearby")
---     end
--- end)
-
 RegisterNetEvent('vehiclekeys:client:GiveKeysClosest')
 AddEventHandler('vehiclekeys:client:GiveKeysClosest', function()
     local player = PlayerPedId()
