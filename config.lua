@@ -1,72 +1,304 @@
 Config = {}
-
--- NPC Vehicle Lock States
-Config.LockNPCDrivingCars = true -- Lock state for NPC cars being driven by NPCs [true = locked, false = unlocked]
-Config.LockNPCParkedCars = true -- Lock state for NPC parked cars [true = locked, false = unlocked]
-Config.UseKeyfob = false -- you can set this true if you dont need ui
--- Lockpick Settings
+Config.Rob = true -- Enables robbing AI cars at gunpoint
+-- All chances are 0-1 <= so lower == less chance, higher == higher chance
+Config.HotwireChance = 0.1 -- Chance for successful hotwire or not
 Config.RemoveLockpickNormal = 0.5 -- Chance to remove lockpick on fail
 Config.RemoveLockpickAdvanced = 0.2 -- Chance to remove advanced lockpick on fail
-Config.LockPickDoorEvent = function() -- This function is called when a player attempts to lock pick a vehicle
-    TriggerEvent('qb-lockpick:client:openLockpick', LockpickFinishCallback)
-end
-
--- Carjack Settings
-Config.CarJackEnable = true -- True allows for the ability to car jack peds.
-Config.CarjackingTime = 7500 -- How long it takes to carjack
-Config.DelayBetweenCarjackings = 10000 -- Time before you can carjack again
-Config.CarjackChance = {
-    ['2685387236'] = 0.0, -- melee
-    ['416676503'] = 0.5, -- handguns
-    ['-957766203'] = 0.75, -- SMG
-    ['860033945'] = 0.90, -- shotgun
-    ['970310034'] = 0.90, -- assault
-    ['1159398588'] = 0.99, -- LMG
-    ['3082541095'] = 0.99, -- sniper
-    ['2725924767'] = 0.99, -- heavy
-    ['1548507267'] = 0.0, -- throwable
-    ['4257178988'] = 0.0, -- misc
-}
-
--- Hotwire Settings
-Config.HotwireChance = 0.5 -- Chance for successful hotwire or not
-Config.TimeBetweenHotwires = 5000 -- Time in ms between hotwire attempts
-Config.minHotwireTime = 20000 -- Minimum hotwire time in ms
-Config.maxHotwireTime = 40000 --  Maximum hotwire time in ms
-
--- Police Alert Settings
+Config.RobberyChance = 0.5 -- Chance to get ped keys or drive off
 Config.AlertCooldown = 10000 -- 10 seconds
-Config.PoliceAlertChance = 0.75 -- Chance of alerting police during the day
-Config.PoliceNightAlertChance = 0.50 -- Chance of alerting police at night (times:01-06)
+Config.PoliceAlertChance = 0.5 -- Chance of alerting police during the day
+Config.PoliceNightAlertChance = 0.25 -- Chance of alerting police at night (times:01-06)
 
--- Job Settings
-Config.SharedKeys = { -- Share keys amongst employees. Employees can lock/unlock any job-listed vehicle
-    ['police'] = { -- Job name
-        requireOnduty = false,
-        vehicles = {
-	    'police', -- Vehicle model
-	    'police2', -- Vehicle model
-	}
+
+-- Vehicle that require hacking to get keys/unlock doors
+Config.Vehicle = {
+    -- https://wiki.gtanet.work/index.php?title=Vehicle_Classes
+    ['vehicle_class'] = {
+        'emergency'
+    },
+    -- QBCore.Shared.Vehicles brand
+    ['brand'] = {
     },
 
-    ['mechanic'] = {
-        requireOnduty = false,
-        vehicles = {
-            'towtruck',
-	}
-    }
-}
+    ['name'] = {
+        'gtr',
+        'r32',
+        'r34',
+        'r35',
+        'tigon',
+        'coquette4',
+        'dukes3',
+        'gauntlet5',
+        '66fastback',
+        '69charger',
+        'z2879',
+        'rmodmustang',
+        'mustang19',
+        'ellie6str',
+        'gauntlet6str',
+        'hustler6str',
+        'ladybird6str',
+        'schwarzer2',
+        'sentinel6str2',
+        'zr3806str',
+        'filthynsx',
+        'elegy',
+        'r8v10',
+        'audirs6tk',
+        'banshee2',
+        'gauntlet3',
+        'gauntlet4',
+        'contss18',
+        'bdragon',
+        'm5e60',
+        'acs8',
+        'e36prb',
+        'e46',
+        'm3e46',
+        'm4',
+        'exor',
+        'c7',
+        '510',
+        'hotring',
+        'cheetah2',
+        'furia',
+        'turismo2',
+        'rudiharley',
+        'delsoleg',
+        'dc5',
+        'na1',
+        'zx10',
+        'lp700',
+        '500gtrlam',
+        'lp670',
+        'tempesta2',
+        'rcf',
+        'granlb',
+        'fnfrx7',
+        'rx7rb',
+        '650slw',
+        'gtrc',
+        'c63',
+        'eclipse',
+        'cp9a',
+        'evo9',
+        '300zw',
+        'z32',
+        '370z',
+        'lwgtr',
+        's15rb',
+        'fnf4r34',
+        'infernus2',
+        'infernus2custom',
+        'monroe',
+        'monroec',
+        'torero',
+        'por930',
+        'gt2rwb',
+        'gt3rs',
+        '911turbos',
+        'panamera17turbo',
+        'wraith',
+        'deviant',
+        'sultanrs',
+        'a80',
+        'golfp',
+        'v242',
+        'nebula',
+        'r1',
+        '19raptor',
+        '22b',
+        '22g63',
+        '22m4',
+        '22m5',
+        '68dart',
+        '405slx',
+        '500gtrlam',
+        '675ltsp',
+        '720s',
+        'a45amg',
+        'a70',
+        'aamx',
+        'an225',
+        'asbo2',
+        'aw139',
+        'bolide',
+        'bt62r',
+        'c3ktem',
+        'c8daytona',
+        'chiron17',
+        'cliors',
+        'dabneon',
+        'db11',
+        'delsoleg',
+        'deluxo2',
+        'deluxo6str',
+        'demon',
+        'dilettante2',
+        'dilettante3',
+        'draftgpr',
+        'seven70',
+        'f10m5rc',
+        'ffrs',
+        'firebard77',
+        'fk8',
+        'fordambo',
+        'futo3',
+        'granlb',
+        'gs350',
+        'gt17',
+        'gt86',
+        'gw400r',
+        'gx370z',
+        'hellion6str',
+        'jesko2020',
+        'kiagt',
+        'landc',
+        'lc100',
+        'lfa',
+        'm2f22',
+        'm3e30',
+        'maj350z',
+        'mbc63',
+        'md530',
+        'mfc',
+        'mt09',
+        'na6',
+        'ninef3',
+        'r8h',
+        'rr08',
+        'rr14',
+        'rx811',
+        's14boss',
+        's30',
+        'savanna',
+        'sc20',
+        'schwarzer2',
+        'senna',
+        'sjaudi',
+        'sr650fly',
+        'srt8b',
+        'starone',
+        'sratumc',
+        'sultanrsv8',
+        'telsapd',
+        'tsgr20',
+        'v877',
+        'vantage',
+        'vulcan',
+        'z32',
+        'z190custom',
+        'z2879',
+        '488misha',
+        'cgt',
+        'corsita',
+        'draugur',
+        'omnisegt',
+        'penumbra2',
+        'weevil2',
+        'tenf2',
+        'lm87',
+        'rmodf8',
+        'rmodbacalar',
+        'rmodbentley1',
+        'rmodbugatti',
+        'rmodc63amg',
+        'rmodcamaro',
+        'rmodessenza',
+        'rmodf40',
+        'rmodg65',
+        'rmodgtr50',
+        'rmodi8ks',
+        'rmodjesko',
+        'rmodmartin',
+        'rmodr8alpil',
+        'rmodsianr',
+        'firebird77',
+        'stratumc',
+        'rmodctsv',
+        'rmod240sx',
+        'lc500',
+        'ksd',
+        'rmzsm',
+        '2020exc',
+        'lpchopper',
+        'nightblade2',
+        'nrg',
+        'slave',
+        'vbbpxxc',
+        '14r1',
+        'f4rr',
+        'DABOB',
+        'nh2r',
+        'DESMO',
+        'RSV4',
+        'gsxr',
+        'HVROD',
+        'indian',
+        'yzfr6',
+        'mt09',
+        'rudiharley',
+        'r1',
+        'bmwr',
+        'granger2',
+        '23ramtrx',
+        'pgt322',
+        'cybertruck',
+        'sultanrsv8',
+        'baller6',
+        'kuruma2',
+        'cog552',
+        'schafter6',
+        'xls2',
+        'urus',
+        'rmodlp670',
+        'polbuffalo4',
+        'policecoach',
+        'rmodescort',
+        'rmodcharger',
+        'foxharley1',
+        'HDIron883',
+        'eclipse',
+        'lancerdy',
+        'teslamodels',
+        'cullinan',
+        'vip8',
+        'bentayga17',
+        'm5csdyb',
+        'LV',
+        'hayabusa',
+        'rmodm8c',
+        'tr_pdexp',
+        'tr_pdtaurus',
+        'tr_pdvic',
+        'tr_pdchar',
+        'tr_pdmstang',
+        'tr_pddm',
+        'tr_pdcv',
+        'tr_emsexp', 
+        'lpi800',
+        'gstberlinetta',
+        'caprice89',
+        'z400dy',
+        'mst',
+        'pts21',
+        'rs7c821',
+        'rr22tacoma',
+        '21gscbb',
+        '23s63l',   
+        'r33',
+        'tr_emsambo', 
+        'polbikeb', 
+        '18gscrb', 
+        'riot3', 
+        'laferrari17', 
+    },
 
--- These vehicles cannot be jacked
-Config.ImmuneVehicles = {
-    'stockade'
-}
+ }
 
--- These vehicles will never lock
-Config.NoLockVehicles = {}
 
--- These weapons cannot be used for carjacking
-Config.NoCarjackWeapons = {
+
+Config.NoRobWeapons = {
     "WEAPON_UNARMED",
     "WEAPON_Knife",
     "WEAPON_Nightstick",
@@ -95,4 +327,5 @@ Config.NoCarjackWeapons = {
     "WEAPON_Ball",
     "WEAPON_Snowball",
     "WEAPON_SmokeGrenade",
+    "WEAPON_Shoe",
 }
